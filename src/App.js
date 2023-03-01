@@ -10,13 +10,18 @@ function App() {
   const [inputText, setInputText] = useState("");
   // to store
   const [todos, setTodos] = useState([]);
-  // to status (completed or uncompleted)
-  const [status, setStatus] = useState("all");
-  // to filter
+  // to check the status (complete or uncomplete)
+  const [status, setStatus] = useState("All");
+  // to filter todos
   const [filteredTodos, setFilteredTodos] = useState([]);
 
   useEffect(() => {
+    getLocalTodos();
+  }, []);
+
+  useEffect(() => {
     filterHandler();
+    saveLocalTodos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todos, status]);
 
@@ -33,6 +38,20 @@ function App() {
       default:
         setFilteredTodos(todos);
         break;
+    }
+  };
+
+  const saveLocalTodos = () => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
+  // Saving in LocalStorage
+  const getLocalTodos = () => {
+    if (localStorage.getItem("todos") === null) {
+      localStorage.setItem("todos", JSON.stringify([]));
+    } else {
+      let localTodos = JSON.parse(localStorage.getItem("todos"));
+      setTodos(localTodos);
     }
   };
 
