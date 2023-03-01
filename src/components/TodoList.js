@@ -3,8 +3,8 @@ import Todo from "./Todo";
 
 function TodoList({ todos, setTodos, filteredTodos }) {
   return (
-    <>
-      <ul style={{listStyle:"none"}}>
+    <div className="todo-container">
+      <ul className="todo-list">
         {filteredTodos.map((todo) => (
           <Todo
             todo={todo}
@@ -15,7 +15,7 @@ function TodoList({ todos, setTodos, filteredTodos }) {
           />
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 
